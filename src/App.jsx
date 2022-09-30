@@ -1,14 +1,14 @@
 import { Routes, Route } from "react-router-dom";
 
-import Home from "./routes/Home";
-import Login from "./routes/Login";
-import Register from "./routes/Register";
-import Perfil from "./routes/Perfil";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Perfil from "./pages/Perfil";
 
 import NavBar from "./components/NavBar";
 import LayaoutRequireAuth from "./components/Layaout/LayaoutRequireAuth";
 import LayoutContainerForm from "./components/Layaout/LayoutContainerForm";
-import NotFound from "./routes/NotFound";
+import NotFound from "./pages/NotFound";
 
 const App = () => {
   return (

@@ -1,7 +1,7 @@
-import { useContext } from "react"
-import { addDoc, collection, deleteDoc, getDocs, query, where, doc, updateDoc } from "firebase/firestore/lite"
 import { useState } from "react"
 import { db, auth } from '../firebase'
+import { addDoc, collection, deleteDoc, getDocs, query, where, doc, updateDoc } from "firebase/firestore/lite"
+
 
 
 export const useFirestore = () => {
@@ -10,6 +10,8 @@ export const useFirestore = () => {
     const [error, setError] = useState()
     const [loading, setLoading] = useState({})
 
+    var today = new Date();
+    var now = today.toLocaleString();
 
     const getData = async (uid) => {
         try {
@@ -34,7 +36,8 @@ export const useFirestore = () => {
             const payload = {
                 titulo: titulo,
                 nota: nota,
-                uid: auth.currentUser.uid
+                uid: auth.currentUser.uid,
+                fecha: now
             }
             const docRef = await addDoc(collectionRef, payload)
             const id = docRef.id
@@ -68,7 +71,7 @@ export const useFirestore = () => {
             setLoading((prev) => ({ ...prev, updateData: true }))
             const docRef = doc(db, `users/${uid}/notas`, newId)
             await updateDoc(docRef, ({ titulo: titulo, nota: nota }))
-            setData(data.map(item => item.id === newId ? ({ ...item, titulo: titulo, nota: nota }) : item))
+            setData(data.map(item => item.id === newId ? ({ ...item, titulo: titulo, nota: nota, fecha: now }) : item))
         } catch (error) {
             console.log(error)
             setError(error.message)

@@ -24,10 +24,10 @@ export const formValidate = () => {
                 return true;
             },
         },
-        validateEquals(velue) {
+        validateEquals(value) {
             return {
                 equals: (v) =>
-                    v === velue ||
+                    v === value ||
                     "No coinciden las contraseñas",
             };
         },
