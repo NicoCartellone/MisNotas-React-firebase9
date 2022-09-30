@@ -18,7 +18,7 @@ const Register = () => {
 
   useEffect(() => {
     if (user) {
-      navegate("/");
+      navegate("/login");
     }
   }, [user]);
 
@@ -39,16 +39,14 @@ const Register = () => {
     setError,
   } = useForm();
 
-  const onSubmit = async ({ email, password }) => {
+  const onSubmit = async ({ email, password, nombre }) => {
     try {
       setLoading(true);
-      await registerUser(email, password);
-      navegate("/login");
+      await registerUser(email, password, nombre);
     } catch (error) {
+      console.log(error.code);
       const { code, message } = erroresFirebase(error.code);
-      setError(code, {
-        message: message,
-      });
+      setError(code, { message });
     } finally {
       setLoading(false);
     }

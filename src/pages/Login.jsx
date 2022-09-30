@@ -35,12 +35,10 @@ const Login = () => {
     try {
       setLoading(true);
       await loginUser(email, password);
-      navegate("/");
     } catch (error) {
+      console.log(error.code);
       const { code, message } = erroresFirebase(error.code);
-      setError(code, {
-        message: message,
-      });
+      setError(code, { message });
     } finally {
       setLoading(false);
     }
@@ -60,7 +58,7 @@ const Login = () => {
               required,
               pattern: patternEmail,
             })}
-            label="Ingresa tu correo"
+            label="Correo"
             error={errors.email}
           >
             <FormError error={errors.email} />
@@ -72,7 +70,7 @@ const Login = () => {
               minLength,
               validate: validateTrim,
             })}
-            label="Ingresa contraseña"
+            label="Contraseña"
             error={errors.password}
           >
             <FormError error={errors.password} />

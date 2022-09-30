@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from "react";
 // import dynamic from "next/dynamic";
 import { UserContext } from "/src/context/UserProvider";
-import Login from "/src/routes/Login";
+import Login from "/src/pages/Login";
 
 import { Suspense } from "react";
 /**
