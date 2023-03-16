@@ -1,7 +1,7 @@
 import { useContext, useMemo, Suspense } from 'react'
 // import dynamic from "next/dynamic";
-import { UserContext } from '../../../../src/context/UserProvider'
-import Login from '../../../../src/pages/Login'
+import { UserContext } from '../context/UserProvider'
+import Login from '../pages/Login'
 
 /**
  * WithAuth HOC
@@ -19,14 +19,16 @@ function withAuth (Component) {
     const loading = <h1>loading</h1>
     // If user is logged in, return original component
     return useMemo(() => {
-      return user ? (
-        <Suspense fallback={loading}>
-          {/* <NavBarComponent /> */}
-          <Component {...props} />
-        </Suspense>
-      ) : (
-        <Login />
-      )
+      return user
+        ? (
+          <Suspense fallback={loading}>
+            {/* <NavBarComponent /> */}
+            <Component {...props} />
+          </Suspense>
+          )
+        : (
+          <Login />
+          )
     }, [user, props])
   }
 

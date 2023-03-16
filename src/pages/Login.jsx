@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { UserContext } from '../../../../src/context/UserProvider'
+import { UserContext } from '../context/UserProvider'
 import { useForm } from 'react-hook-form'
 import { erroresFirebase } from '../utils/erroresFirebase.js'
 import { formValidate } from '../utils/formValidate'

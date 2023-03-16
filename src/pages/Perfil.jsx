@@ -3,8 +3,8 @@ import { useContext, useState, useRef } from 'react'
 import { auth, db, storage } from '../firebase'
 import { uploadBytes, getDownloadURL, ref } from 'firebase/storage'
 
-import Title from '../../../../src/components/Title'
-import Button from '../../../../src/components/Button'
+import Title from '../components/Title'
+import Button from '../components/Button'
 import { updateProfile } from 'firebase/auth'
 import { doc, updateDoc } from 'firebase/firestore/lite'
 

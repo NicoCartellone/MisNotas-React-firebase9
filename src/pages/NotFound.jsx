@@ -1,4 +1,4 @@
-import Title from '../../../../src/components/Title'
+import Title from '../components/Title'
 
 const NotFound = () => {
   return (
