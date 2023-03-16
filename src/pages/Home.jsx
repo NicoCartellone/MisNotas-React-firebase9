@@ -32,8 +32,6 @@ const Home = () => {
   const [nota, setNota] = useState('')
   const [newId, setNewId] = useState()
 
-  console.log(data)
-
   useEffect(() => {
     getData(userData.uid)
   }, [])
