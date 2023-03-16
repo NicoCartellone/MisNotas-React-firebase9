@@ -1,36 +1,37 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect } from 'react'
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   onAuthStateChanged,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
-  signInWithPopup,
-  signOut,
-} from "firebase/auth";
-import { auth, db } from "../firebase";
-import { getDoc, setDoc, doc } from "firebase/firestore/lite";
+  // signInWithPopup,
+  signInWithRedirect,
+  signOut
+} from 'firebase/auth'
+import { auth, db } from '../firebase'
+import { getDoc, setDoc, doc } from 'firebase/firestore/lite'
 
 const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(false);
-  const [userData, setUserData] = useState({});
+  const [user, setUser] = useState(false)
+  const [userData, setUserData] = useState({})
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUser(true);
+        setUser(true)
         setUserData({
           email: user.email,
           uid: user.uid,
           displayName: user.displayName,
-          photoURL: user.photoURL,
-        });
+          photoURL: user.photoURL
+        })
       } else {
-        setUser(false);
-        setUserData({});
+        setUser(false)
+        setUserData({})
       }
-    });
-  }, [user]);
+    })
+  }, [user])
 
   const registerUser = async (email, password, nombre) => {
     try {
@@ -38,70 +39,70 @@ const UserProvider = ({ children }) => {
         auth,
         email,
         password
-      );
-      const docRef = doc(db, "users", user.uid);
-      const docSpan = await getDoc(docRef);
+      )
+      const docRef = doc(db, 'users', user.uid)
+      const docSpan = await getDoc(docRef)
       if (docSpan.exists()) {
-        setUserData({ ...docSpan.data() });
+        setUserData({ ...docSpan.data() })
       } else {
         await setDoc(docRef, {
           email: user.email,
           uid: user.uid,
           displayName: nombre,
-          photoURL: user.photoURL,
-        });
-        setUser(true);
+          photoURL: user.photoURL
+        })
+        setUser(true)
         setUserData({
           email: user.email,
           uid: user.uid,
           displayName: nombre,
-          photoURL: user.photoURL,
-        });
+          photoURL: user.photoURL
+        })
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   const loginUser = async (email, password) => {
-    signInWithEmailAndPassword(auth, email, password);
-  };
+    signInWithEmailAndPassword(auth, email, password)
+  }
 
   const signOutUser = () => {
-    signOut(auth);
-  };
+    signOut(auth)
+  }
 
   const GoogleSignIn = async () => {
     try {
-      const provider = new GoogleAuthProvider();
-      const { user } = await signInWithPopup(auth, provider);
-      const docRef = doc(db, "users", user.uid);
-      const docSpan = await getDoc(docRef);
+      const provider = new GoogleAuthProvider()
+      const { user } = await signInWithRedirect(auth, provider)
+      const docRef = doc(db, 'users', user.uid)
+      const docSpan = await getDoc(docRef)
       if (docSpan.exists()) {
-        setUserData({ ...docSpan.data() });
+        setUserData({ ...docSpan.data() })
       } else {
         await setDoc(docRef, {
           email: user.email,
           uid: user.uid,
           displayName: user.displayName,
-          photoURL: user.photoURL,
-        });
-        setUser(true);
+          photoURL: user.photoURL
+        })
+        setUser(true)
         setUserData({
           email: user.email,
           uid: user.uid,
           displayName: user.displayName,
-          photoURL: user.photoURL,
-        });
+          photoURL: user.photoURL
+        })
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   const ResetPassword = async () => {
-    await sendPasswordResetEmail(auth, auth.currentUser.email);
-  };
+    await sendPasswordResetEmail(auth, auth.currentUser.email)
+  }
 
   return (
     <UserContext.Provider
@@ -114,13 +115,13 @@ const UserProvider = ({ children }) => {
         GoogleSignIn,
         userData,
         setUserData,
-        ResetPassword,
+        ResetPassword
       }}
     >
       {children}
     </UserContext.Provider>
-  );
-};
-export default UserProvider;
+  )
+}
+export default UserProvider
 
-export const UserContext = createContext();
+export const UserContext = createContext()
