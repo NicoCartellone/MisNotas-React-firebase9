@@ -1,7 +1,7 @@
-import ButtonLoading from "./ButtonLoading";
+import ButtonLoading from './ButtonLoading'
 
-const Button = ({ text, type, color = "blue", loading, onClick }) => {
-  if (loading) return <ButtonLoading />;
+const Button = ({ text, type, color = 'blue', loading, onClick }) => {
+  if (loading) return <ButtonLoading />
 
   return (
     <button
@@ -11,6 +11,6 @@ const Button = ({ text, type, color = "blue", loading, onClick }) => {
     >
       {text}
     </button>
-  );
-};
-export default Button;
+  )
+}
+export default Button
