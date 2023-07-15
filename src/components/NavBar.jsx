@@ -7,17 +7,13 @@ const NavBar = () => {
   const { signOutUser, userData, user } = useContext(UserContext)
 
   const handleLogOut = async () => {
-    try {
-      await signOutUser()
-    } catch (error) {
-      console.log(error.code)
-    }
+    await signOutUser()
   }
 
-  const classButtonBlue =
+  const classNameButtonBlue =
     'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
 
-  // const classButtonRed =
+  // const classNameButtonRed =
   //   'text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3  dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800'
 
   return (
@@ -115,7 +111,7 @@ const NavBar = () => {
                         <Menu.Item>
                           {({ active }) => (
                             <NavLink
-                              to='/perfil'
+                              to='/profile'
                               className={`flex flex-row py-2 px-4 text-sm cursor-pointer
                     
                     ${
@@ -184,10 +180,10 @@ const NavBar = () => {
                   to='/login'
                   className='text-black font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 focus:text-blue-700'
                 >
-                  Login
+                  Iniciar Sesión
                 </NavLink>
-                <NavLink to='/register' className={classButtonBlue}>
-                  Register
+                <NavLink to='/register' className={classNameButtonBlue}>
+                  Registrarse
                 </NavLink>
               </>
               )}

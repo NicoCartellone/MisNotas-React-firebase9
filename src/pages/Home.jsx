@@ -3,14 +3,15 @@ import { useFirestore } from '../hooks/useFirestore'
 import { formValidate } from '../utils/formValidate'
 import { useForm } from 'react-hook-form'
 import { erroresFirebase } from '../utils/erroresFirebase'
-import withAuth from '../../../../src/utils/withAuth'
-import { UserContext } from '../../../../src/context/UserProvider'
+import withAuth from '../utils/withAuth'
+import { UserContext } from '../context/UserProvider'
 
 import Button from '../components/Button'
 import Title from '../components/Title'
 import FormInput from '../components/FormInput'
 import FormError from '../components/FormError'
 import FormTextArea from '../components/FormTextArea'
+import Loading from '../components/Loading'
 
 const Home = () => {
   const { userData } = useContext(UserContext)
@@ -32,13 +33,11 @@ const Home = () => {
   const [nota, setNota] = useState('')
   const [newId, setNewId] = useState()
 
-  console.log(data)
-
   useEffect(() => {
     getData(userData.uid)
   }, [])
 
-  if (loading.getData) return <p>Loading data...</p>
+  if (loading.getData) return <Loading />
   if (error) return <p>{error}</p>
 
   const onSubmit = async ({ titulo, nota }) => {

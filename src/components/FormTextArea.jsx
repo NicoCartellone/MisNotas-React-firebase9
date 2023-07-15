@@ -19,7 +19,8 @@ const FormTextArea = forwardRef(
           {label}
         </label>
         <textarea
-          rows={6}
+          rows={4}
+          wrap='hard'
           className={errorClassInput}
           type={type}
           placeholder={placeholder}

@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { UserContext } from '../../../../src/context/UserProvider'
+import { UserContext } from '../context/UserProvider'
 
 const ButtonGoogle = () => {
   const { GoogleSignIn } = useContext(UserContext)

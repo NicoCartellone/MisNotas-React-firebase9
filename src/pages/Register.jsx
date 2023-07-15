@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/UserProvider'
@@ -10,11 +10,11 @@ import FormInput from '../components/FormInput'
 import Title from '../components/Title'
 import Button from '../components/Button'
 import ButtonGoogle from '../components/ButtonGoogle'
+import Loading from '../components/Loading'
 
 const Register = () => {
+  const { registerUser, user, loading } = useContext(UserContext)
   const navegate = useNavigate()
-  const [loading, setLoading] = useState(false)
-  const { registerUser, user } = useContext(UserContext)
 
   useEffect(() => {
     if (user) {
@@ -41,23 +41,20 @@ const Register = () => {
 
   const onSubmit = async ({ email, password, nombre }) => {
     try {
-      setLoading(true)
       await registerUser(email, password, nombre)
     } catch (error) {
       console.log(error.code)
       const { code, message } = erroresFirebase(error.code)
       setError(code, { message })
-    } finally {
-      setLoading(false)
     }
   }
 
-  return user
+  return !loading
     ? (
-      <></>
+      <Loading />
       )
     : (
-      <>
+      <div className='w-96 mx-auto mt-10'>
         <Title text='Registrate' />
         <div>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -110,7 +107,7 @@ const Register = () => {
               <FormError error={errors.repassword} />
             </FormInput>
             <div className='flex justify-center'>
-              <Button text='Registrate' type='submit' loading={loading} />
+              <Button text='Registrate' type='submit' />
             </div>
             <div className='flex justify-center align-center mt-8 mb-8 w-full'>
               <div
@@ -146,7 +143,7 @@ const Register = () => {
             <ButtonGoogle />
           </div>
         </div>
-      </>
+      </div>
       )
 }
 export default Register

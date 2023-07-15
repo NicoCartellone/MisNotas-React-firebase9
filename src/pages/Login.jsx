@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { UserContext } from '../../../../src/context/UserProvider'
+import { UserContext } from '../context/UserProvider'
 import { useForm } from 'react-hook-form'
 import { erroresFirebase } from '../utils/erroresFirebase.js'
 import { formValidate } from '../utils/formValidate'
@@ -10,10 +10,11 @@ import FormInput from '../components/FormInput'
 import Title from '../components/Title'
 import Button from '../components/Button'
 import ButtonGoogle from '../components/ButtonGoogle'
+import Loading from '../components/Loading'
 
 const Login = () => {
-  const { loginUser, user } = useContext(UserContext)
-  const [loading, setLoading] = useState(false)
+  const { loginUser, user, loading } = useContext(UserContext)
+
   const navegate = useNavigate()
 
   useEffect(() => {
@@ -27,29 +28,19 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    setError
+    formState: { errors }
   } = useForm()
 
   const onSubmit = async ({ email, password }) => {
-    try {
-      setLoading(true)
-      await loginUser(email, password)
-    } catch (error) {
-      console.log(error.code)
-      const { code, message } = erroresFirebase(error.code)
-      setError(code, { message })
-    } finally {
-      setLoading(false)
-    }
+    await loginUser(email, password)
   }
 
-  return user
+  return !loading
     ? (
-      <></>
+      <Loading />
       )
     : (
-      <>
+      <div className='w-96 mx-auto mt-10'>
         <Title text='Iniciar Sesión' />
         <div>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -78,7 +69,7 @@ const Login = () => {
               <FormError error={errors.password} />
             </FormInput>
             <div className='flex justify-center'>
-              <Button text='Acceder' type='submit' loading={loading} />
+              <Button text='Acceder' type='submit' />
             </div>
             <div className='flex justify-center align-center mt-8 mb-8 w-full'>
               <div className='flex bg-gray-300 h-px w-5/12' />
@@ -90,7 +81,7 @@ const Login = () => {
             <ButtonGoogle />
           </div>
         </div>
-      </>
+      </div>
       )
 }
 export default Login
