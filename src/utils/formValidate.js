@@ -10,11 +10,11 @@ export const formValidate = () => {
     },
     minLength: {
       value: 3,
-      message: 'Mínimo 6 carácteres'
+      message: 'Mínimo 3 carácteres'
     },
     maxLength: {
-      value: 200,
-      message: 'Máximo 200 carácteres'
+      value: 50,
+      message: 'Máximo 50 carácteres'
     },
     validateTrim: {
       trim: (v) => {

@@ -11,6 +11,7 @@ import Title from '../components/Title'
 import FormInput from '../components/FormInput'
 import FormError from '../components/FormError'
 import FormTextArea from '../components/FormTextArea'
+import Loading from '../components/Loading'
 
 const Home = () => {
   const { userData } = useContext(UserContext)
@@ -36,7 +37,7 @@ const Home = () => {
     getData(userData.uid)
   }, [])
 
-  if (loading.getData) return <p>Loading data...</p>
+  if (loading.getData) return <Loading />
   if (error) return <p>{error}</p>
 
   const onSubmit = async ({ titulo, nota }) => {

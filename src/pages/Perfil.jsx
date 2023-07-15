@@ -70,7 +70,7 @@ const Perfil = () => {
   }
 
   return (
-    <div>
+    <>
       <div>
         <Title text='Perfil' />
       </div>
@@ -80,14 +80,14 @@ const Perfil = () => {
           {profileUrl
             ? (
               <img
-                className='w-32 h-32 rounded-full shadow-md'
+                className='w-32 h-32 rounded-full shadow-md border-2 border-blue-700'
                 src={profileUrl}
                 alt='user photo'
               />
               )
             : (
               <img
-                className='w-32 h-32 rounded-full shadow-md'
+                className='w-32 h-32 rounded-full shadow-md border-4 border-blue-500'
                 src={userData.photoURL}
                 alt='user photo'
               />
@@ -109,18 +109,16 @@ const Perfil = () => {
       </div>
       <div className='mt-10'>
         <div className='flex justify-center mb-3 text-xl'>
-          <h1 className='mr-5'>Nombre</h1>
           <h1 className='capitalize'>{userData.displayName}</h1>
         </div>
         <div className='flex justify-center text-xl'>
-          <h1 className='mr-5'>Email</h1>
-          <h1>{userData.email}</h1>
+          <h1 className='capitalize'>{userData.email}</h1>
         </div>
         <div className='flex justify-center mt-5'>
           <Button onClick={handleResetPassword} text='Restablecer contraseña' />
         </div>
       </div>
-    </div>
+    </>
   )
 }
 export default Perfil
